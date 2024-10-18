@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+
+{% block title %}Login{% endblock %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+{% block content %}
+    <h1 class="title">Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label">E-mail</label>
+            <div class="control">
+                <input class="input" type="email" name="username" required>  <!-- Envia como 'username' -->
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Senha</label>
+            <div class="control">
+                <input class="input" type="password" name="password" required>
+            </div>
+        </div>
+
+        <div class="control">
+            <button class="button is-primary" type="submit">Entrar</button>
+        </div>
+    </form>
+
+    <p><a href="{% url 'change_password' %}">Esqueci minha senha</a></p>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>  <!-- Exibe mensagens de erro ou sucesso -->
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

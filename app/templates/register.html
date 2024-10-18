@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastro{% endblock %}
+
+{% block content %}
+    <h1 class="title">Cadastro</h1>
+
+    <!-- Exibe mensagens de sucesso ou erro -->
+    {% if messages %}
+        <div class="notification is-success">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="field">
+            <label class="label">Nome</label>
+            <div class="control">
+                <input class="input" type="text" name="username" value="{{ form.username.value }}" required>
+            </div>
+            <!-- Exibe erros do campo nome -->
+            {% if form.username.errors %}
+                <p class="help is-danger">{{ form.username.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="field">
+            <label class="label">E-mail</label>
+            <div class="control">
+                <input class="input" type="email" name="email" value="{{ form.email.value }}" required>
+            </div>
+            <!-- Exibe erros do campo email -->
+            {% if form.email.errors %}
+                <p class="help is-danger">{{ form.email.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="field">
+            <label class="label">Senha</label>
+            <div class="control">
+                <input class="input" type="password" name="password1" required>
+            </div>
+            <!-- Exibe erros do campo senha -->
+            {% if form.password1.errors %}
+                <p class="help is-danger">{{ form.password1.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="field">
+            <label class="label">Confirme a Senha</label>
+            <div class="control">
+                <input class="input" type="password" name="password2" required>
+            </div>
+            <!-- Exibe erros do campo confirmação de senha -->
+            {% if form.password2.errors %}
+                <p class="help is-danger">{{ form.password2.errors.0 }}</p>
+            {% endif %}
+        </div>
+
+        <div class="field">
+            <label class="label">Imagem de Perfil</label>
+            <div class="control">
+                <input class="input" type="file" name="profile_image">
+            </div>
+        </div>
+
+        <div class="control">
+            <button class="button is-primary" type="submit">Cadastrar</button>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div class="error-messages">
+                <p class="help is-danger">{{ form.non_field_errors.0 }}</p>
+            </div>
+        {% endif %}
+    </form>
+{% endblock %}

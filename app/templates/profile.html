@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+    <h1 class="title">Meu Perfil</h1>
+    <p><strong>Nome:</strong> {{ user.username }}</p>
+    <p><strong>E-mail:</strong> {{ user.email }}</p>
+    
+    {% if user.profile_image %}
+        <p><img src="{{ user.profile_image.url }}" alt="Imagem de perfil"></p>
+    {% else %}
+        <p>Sem imagem de perfil.</p>
+    {% endif %}
+{% endblock %}

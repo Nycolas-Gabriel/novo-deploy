@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meu Site{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+
+    <nav class="navbar is-primary">
+      
+        <div class="navbar-menu">
+            <div class="navbar-end">
+                {% if user.is_authenticated %}
+                
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="button is-light">Logout</button>
+                </form>
+                {% else %}
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">Meu Site</a>
+                </div>
+                <a class="navbar-item" href="{% url 'register' %}">Cadastro</a>
+                <a class="navbar-item" href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+
+</body>
+</html>

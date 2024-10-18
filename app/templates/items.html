@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Itens{% endblock %}
+
+{% block content %}
+    <h1 class="title">Lista de Itens</h1>
+    <div>
+        <a href="{% url 'change_password' %}">Alterar senha</a> |
+        <a href="{% url 'profile' %}">Perfil</a>
+    </div>
+
+    <form method="GET">
+        <div class="field">
+            <div class="control">
+                <input class="input" type="text" name="search" placeholder="Buscar..." value="{{ search_query }}">
+            </div>
+        </div>
+        <div class="control">
+            <button class="button is-primary" type="submit">Buscar</button>
+        </div>
+    </form>
+
+    <ul>
+        {% for item in items %}
+            <li>{{ item.nome }} - {{ item.descricao }}</li>
+        {% empty %}
+            <li>Nenhum item encontrado.</li>
+        {% endfor %}
+    </ul>
+
+    <nav class="pagination" role="navigation" aria-label="pagination">
+        {% if items.has_previous %}
+            <a class="pagination-previous" href="?page={{ items.previous_page_number }}&search={{ search_query }}">&laquo; Anterior</a>
+        {% endif %}
+        {% if items.has_next %}
+            <a class="pagination-next" href="?page={{ items.next_page_number }}&search={{ search_query }}">Próximo &raquo;</a>
+        {% endif %}
+    </nav>
+
+    <p>Total de Itens: {{ total_items }}</p>
+{% endblock %}
